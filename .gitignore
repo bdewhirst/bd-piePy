@@ -1,3 +1,10 @@
+# user-defined
+.idea/*
+menu-local  # a sample format file (*-template) has been included
+
+
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
