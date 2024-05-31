@@ -15,6 +15,8 @@ from PySide6.QtWidgets import (
     QMainWindow,
     QSlider,
     QSpinBox,
+    QVBoxLayout,
+    QWidget,
 )
 
 
@@ -27,8 +29,7 @@ class MainWindow(QMainWindow):
         self.setMinimumSize(QSize(300, 300))  # specifies smallest size
         self.setMaximumSize(QSize(900, 1200))  # specifies largest size
 
-
-        # TODO: heavy rotation, light rotation, etc.
+        # to consider: separate lists for heavy rotation, light rotation, etc.? Instead, current plan is 'you choose'
         self.menu = (
             "chx garlic",
             "chx artichoke",
@@ -56,36 +57,46 @@ class MainWindow(QMainWindow):
             "pork & broc.",
             "crustless chx. pot pie",
         )
-        self.menu_picks: list = []
-        while len(self.menu_picks) < 6:
-            self.menu_picks.append(random.choice(self.menu))
+        self.menu_picks = set()
+        while len(self.menu_picks) < 9:
+            self.menu_picks.add(random.choice(self.menu))
 
-        self.lineedit = QLineEdit()
-        self.lineedit.setMaxLength(10)
-        self.lineedit.setPlaceholderText(str(self.menu_picks))
+        layout = QVBoxLayout()
 
-        self.lineedit.returnPressed.connect(self.return_pressed)
-        self.lineedit.selectionChanged.connect(self.selection_changed)
-        self.lineedit.textChanged.connect(self.text_changed)
-        self.lineedit.textEdited.connect(self.text_edited)
+        for pick in self.menu_picks:
+            layout.addWidget(QCheckBox(pick))
 
-        self.setCentralWidget(self.lineedit)
 
-    def return_pressed(self):
-        print("Return pressed!")
-        self.lineedit.setText("BOOM!")
 
-    def selection_changed(self):
-        print("Selection changed")
-        print(self.lineedit.selectedText())
+        # self.lineedit = QLineEdit()
+        # self.lineedit.setMaxLength(10)
+        # self.lineedit.setPlaceholderText(str(self.menu_picks))
 
-    def text_changed(self, text):
-        print("Text changed...")
-        print(text)
+        # self.lineedit.returnPressed.connect(self.return_pressed)
+        # self.lineedit.selectionChanged.connect(self.selection_changed)
+        # self.lineedit.textChanged.connect(self.text_changed)
+        # self.lineedit.textEdited.connect(self.text_edited)
+        # layout.addWidget(self.lineedit)
 
-    def text_edited(self, text):
-        print("Text edited...")
-        print(text)
+        central_widget = QWidget()
+        central_widget.setLayout(layout)
+        self.setCentralWidget(central_widget)
+
+    # def return_pressed(self):
+    #     print("Return pressed!")
+    #     self.lineedit.setText("BOOM!")
+    #
+    # def selection_changed(self):
+    #     print("Selection changed")
+    #     print(self.lineedit.selectedText())
+    #
+    # def text_changed(self, text):
+    #     print("Text changed...")
+    #     print(text)
+    #
+    # def text_edited(self, text):
+    #     print("Text edited...")
+    #     print(text)
 
 
 app = QApplication(sys.argv)
