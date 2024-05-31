@@ -1,7 +1,7 @@
 # user-defined
 .idea/*
-menu-local  # a sample format file (*-template) has been included
-
+# a sample format file (*-template) has been included
+menu-local
 
 
 
