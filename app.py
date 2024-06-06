@@ -66,8 +66,6 @@ class MainWindow(QMainWindow):
         for pick in self.menu_picks:
             layout.addWidget(QCheckBox(pick))
 
-
-
         # self.lineedit = QLineEdit()
         # self.lineedit.setMaxLength(10)
         # self.lineedit.setPlaceholderText(str(self.menu_picks))
